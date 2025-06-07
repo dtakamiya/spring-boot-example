@@ -44,4 +44,30 @@ class AccountControllerIntegrationTest {
         assertThat(response.getStatusCode().is4xxClientError()).isTrue();
         assertThat(response.getBody()).contains("送金元口座が存在しません");
     }
+
+    @Test
+    void 為替レート考慮振込API_正常系() {
+        // 1USD=150JPY, 送金元1の残高は100000なので十分
+        String url = "http://localhost:" + port + "/api/accounts/transfer-with-exchange?fromId=1&toId=2&amount=10&fromCurrency=USD&toCurrency=JPY";
+        ResponseEntity<String> response = restTemplate.postForEntity(url, null, String.class);
+        assertThat(response.getStatusCode().is2xxSuccessful()).isTrue();
+        assertThat(response.getBody()).contains("為替レート考慮振込成功");
+    }
+
+    @Test
+    void 為替レート考慮振込API_残高不足() {
+        // 送金元1の残高は100000、1000000USD送金は残高不足
+        String url = "http://localhost:" + port + "/api/accounts/transfer-with-exchange?fromId=1&toId=2&amount=1000000&fromCurrency=USD&toCurrency=JPY";
+        ResponseEntity<String> response = restTemplate.postForEntity(url, null, String.class);
+        assertThat(response.getStatusCode().is4xxClientError()).isTrue();
+        assertThat(response.getBody()).contains("残高不足");
+    }
+
+    @Test
+    void 為替レート考慮振込API_送金元口座未存在() {
+        String url = "http://localhost:" + port + "/api/accounts/transfer-with-exchange?fromId=999&toId=2&amount=10&fromCurrency=USD&toCurrency=JPY";
+        ResponseEntity<String> response = restTemplate.postForEntity(url, null, String.class);
+        assertThat(response.getStatusCode().is4xxClientError()).isTrue();
+        assertThat(response.getBody()).contains("送金元口座が存在しません");
+    }
 } 

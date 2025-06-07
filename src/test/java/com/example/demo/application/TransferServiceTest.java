@@ -19,13 +19,15 @@ import static org.mockito.Mockito.*;
 class TransferServiceTest {
     AccountRepository accountRepository;
     NotificationService notificationService;
+    ExchangeRateService exchangeRateService;
     TransferService transferService;
 
     @BeforeEach
     void setUp() {
         accountRepository = mock(AccountRepository.class);
         notificationService = mock(NotificationService.class);
-        transferService = new TransferService(accountRepository, notificationService);
+        exchangeRateService = mock(ExchangeRateService.class);
+        transferService = new TransferService(accountRepository, notificationService, exchangeRateService);
     }
 
     @Test
