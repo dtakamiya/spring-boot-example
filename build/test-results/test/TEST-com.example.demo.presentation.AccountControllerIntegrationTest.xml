@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.demo.presentation.AccountControllerIntegrationTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2025-06-07T12:15:32.434Z" hostname="takamiyadaisukenonotobukkukonpyuta.local" time="0.122">
+  <properties/>
+  <testcase name="振込API_正常系()" classname="com.example.demo.presentation.AccountControllerIntegrationTest" time="0.106"/>
+  <testcase name="振込API_送金元口座未存在()" classname="com.example.demo.presentation.AccountControllerIntegrationTest" time="0.008"/>
+  <testcase name="振込API_残高不足()" classname="com.example.demo.presentation.AccountControllerIntegrationTest" time="0.006"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

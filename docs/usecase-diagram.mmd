@@ -1,0 +1,9 @@
+graph TD
+  User["利用者"] -->|"振込依頼"| TransferAPI["口座間振込API（/api/accounts/transfer）"]
+  TransferAPI -->|"ユースケース呼び出し"| Usecase["振込ユースケース（TransferService）"]
+  Usecase -->|"口座情報取得・更新"| Repo["口座リポジトリ（AccountRepository）"]
+  Repo -->|"DBアクセス"| DB["口座DB"]
+  Usecase -->|"外部通知"| Notification["外部通知サービス（NotificationService）"]
+  User -->|"為替レート取得"| ExchangeAPI["為替レート取得API（/api/exchange-rate）"]
+  ExchangeAPI -->|"外部サービス呼び出し"| ExchangeService["為替レート取得サービス（ExchangeRateService）"]
+  ExchangeService -->|"外部API連携（ダミー）"| DummyExt["外部為替レートAPI（ダミー）"] 
